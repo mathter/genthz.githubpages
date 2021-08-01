@@ -1,0 +1,119 @@
+@import "github.css";
+
+body {
+    color: #495242;
+    font-size: 1.1em;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+    line-height: 1.5em;
+}
+
+.root {
+    display: block;
+    margin: auto;
+    padding: 1em;
+    max-width: 70em;
+}
+
+.header > div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.logo img {
+    width: 10em;
+}
+
+.logotext {
+    padding-top: 1em;
+    font-size: 2em;
+    font-weight: 900;
+    line-height: 1.1em;
+    text-align: right;
+    flex-grow: 2;
+}
+
+.alert {
+    padding: 0.5em;
+    text-align: justify;
+    border: 1px #ffa400 solid;
+    border-radius: 5px;
+    background-color: #ffbf03;
+    flex-grow: 1;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content {
+    flex-grow: 3;
+    flex-basis: 0;
+}
+
+.content > * {
+    text-align: justify;
+}
+
+.topics{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+h1 {
+    font-size: 150%;
+    font-weight: 900;
+    text-align: left;
+    margin: 20px 5px 5px 0px;
+}
+
+h2 {
+    font-size: 140%;
+    font-weight: 900;
+    text-align: left;
+    margin: 20px 5px 5px 0px;
+}
+
+h3 {
+    font-size: 130%;
+    font-weight: 900;
+    text-align: left;
+    margin: 20px 5px 5px 0px;
+    color: grey;
+}
+
+a {
+    color: #495242;
+}
+
+a:hover {
+    color: #a334cb;
+    background-color: rgba(12, 206, 178, 0.4);
+}
+
+
+p {
+    text-align: justify;
+}
+
+.menu {
+    margin: 1em;
+    width: 100%;
+}
+
+.menu > div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    font-size: 140%;
+    justify-content: center;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url("../font/Comfortaa.ttf");
+    font-stretch: semi-condensed;
+}

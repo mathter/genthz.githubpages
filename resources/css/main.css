@@ -1,0 +1,146 @@
+@import "github.css";
+
+body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    font-family: Comfortaa;
+    font-size: 11pt;
+    line-height: 1.5rem;
+
+    text-align: justify;
+
+    width: 70rem;
+    margin: auto;
+    padding: 0px;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+#menuicon {
+    display: none;
+}
+
+#header {
+    flex-grow: 1;
+    flex-basis: 90%;
+    padding: 1rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-direction: row;
+    text-align: right;
+}
+
+#header > * {
+    flex-grow: 0;
+    flex-basis: 90%;
+
+    justify-content: flex-end;
+}
+
+#menu {
+    flex-grow: 0;
+    flex-basis: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    margin: auto;
+}
+
+#menu > div {
+    flex-grow: 0;
+    padding: 0.5rem;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#navigation {
+    display: block;
+    flex-basis: auto;
+    flex-grow: 1;
+    padding: 1rem;
+    max-width: 15%;
+}
+
+#navigation > ul {
+    padding-inline-start: 1rem;
+}
+
+#content {
+    flex-basis: 1px;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+#footer {
+    flex-grow: 0;
+    flex-basis: 100%;
+    padding: 1rem;
+}
+
+@media (max-width: 75rem) {
+    body {
+        width: 90%;
+    }
+
+    #menuicon {
+        display: block;
+        position: fixed;
+        left: 10px;
+    }
+
+    #navigation {
+        display: none;
+        position: fixed;
+        background: rgba(229, 238, 154, 0.73);
+        border-radius: 10px;
+        z-index: 100;
+        top: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        overflow: scroll;
+        max-width: 100%;
+    }
+
+    #content {
+        width: 100%;
+    }
+}
+
+.alert {
+    padding: 0.5em;
+    text-align: justify;
+    border: 1px #ffa400 solid;
+    border-radius: 5px;
+    background-color: #ffbf03;
+    flex-grow: 1;
+}
+
+.logotext {
+    padding-top: 1em;
+    font-size: 2em;
+    font-weight: 900;
+    line-height: 1.1em;
+    text-align: right;
+    flex-grow: 2;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url("../font/Comfortaa.ttf");
+    font-stretch: semi-condensed;
+}
