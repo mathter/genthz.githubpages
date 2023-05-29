@@ -5,7 +5,7 @@ menu_type: main
 page_type: page_doc
 ---
 
-# Documentation. Version 2
+# Documentation. Version 3
 
 ## Getting started
 
@@ -15,16 +15,15 @@ so:
 ### Installation
 
 ```xml
-
 <dependency>
     <groupId>org.genthz</groupId>
-    <artifactId>genthz-api</artifactId>
-    <version>2.0.0</version> <!-- or latest version -->
+    <artifactId>genthz-core</artifactId>
+    <version>3.0.2</version> <!-- or latest version -->
 </dependency>
 <dependency>
-<groupId>org.genthz</groupId>
-<artifactId>genthz-core</artifactId>
-<version>2.0.0</version> <!-- or latest version -->
+    <groupId>org.genthz</groupId>
+    <artifactId>genthz-logging-slf4j</artifactId>
+    <version>3.0.2</version> <!-- or latest version -->
 </dependency>
 ```
 
@@ -34,25 +33,36 @@ so:
 ### Sources
 There are source codes at [github.com](https://github.com/mathter/genthz){:target="_blank"}
 ### HelloWorld sample
-It is required to get [`ObjectFactory`]({{site.source_base}}/genthz-api/src/main/java/org/genthz/ObjectFactory.java){:target="_blank"}
+It is required to get [`ObjectFactory`]({{site.source_base}}/genthz-core/src/main/java/org/genthz/ObjectFactory.java){:target="_blank"}
 firstly to start using **GenThz Project**.
-It is possible to use a default configuration for generating values for your project.
+It is possible to use a default realization for generating values for your project.
 ```java
-// Getting producer
-ObjectFactory objectFactory = new DefaultConfiguration().build().factory();
+// The simplest way to create ObjectFactory
+ObjectFactory objectFactory = new DashaObjectFactory();
 ```
 
 All java objects are based on simple types such as ``long``, ``int``, ``java.lang.String`` and etc
 (all simple types description is [here](topic_00_100_simple_types)). There
-is [`DefaultConfiguration`]({{site.source_base}}/genthz-api/src/main/java/org/genthz/configuration/dsl/DefaultConfiguration.java)
-{:target="_blank"} for generating all such types. And you can use a simple code to produce a new object:
+is default realization [`DashaDsl`]({{site.source_base}}/genthz-core/src/main/java/org/genthz/dasha/dsl/DashaDsl.java){:target="_blank"}
+for generating all such types. And you can use a simple code to produce a new object:
 
 ```java
-ObjectFactory objectFactory=new DefaultConfiguration().build().factory();
+// Creating ObjectFactory using generation provider.
+GenerationProvider gp = new DashaDsl()  // Enable Dsl configuration of object generation.
+        .def()                          // Init instance builders and object fillers for simple types such as long, java.lang.String and etc.
+        .build();                       // Create generation provider.
+        
+ObjectFactory objectFactory = new DashaObjectFactory(gp);
+String value =  objectFactory.get(String.class);
+```
 
-        String value=objectFactory.build(String.class);
-// Or more complexity
-        String value=objectFactory.build(Init.builder(String.class).build());
+```java
+// Creating ObjectFactory from DashaDsl directly.
+ObjectFactory dsl = new DashaDsl()  // Enable Dsl configuration of object generation.
+        .def()                      // Init instance builders and object fillers for simple types such as long, java.lang.String and etc.
+        ..objectFactory()           // Create generation provider.
+        
+String value =  objectFactory.get(String.class);
 ```
 
 ### Complex object generation
@@ -60,7 +70,7 @@ ObjectFactory objectFactory=new DefaultConfiguration().build().factory();
 What about complex objects? It is very simple! All complex objects consist of [simple types](topic_100_simple_types)
 such as ``long``, ``int``, ``java.lang.String``
 and/or another complext objects. And Generated engine can automatically produce such objects automatically using
-[DefaultFiller](https://github.com/mathter/genthz/blob/master/genthz-api/src/main/java/org/genthz/function/DefaultFiller.java):
+[`DefaultFiller`]({{site.source_base}}/genthz-core/src/main/java/org/genthz/function/DefaultFiller.java){:target="_blank"}:
 
 ```java
 public class Person {
@@ -73,16 +83,17 @@ public class Person {
     }
 }
 
-    ObjectFactory objectFactory = new DefaultConfiguration().build().factory();
-    Person person = objectFactory.build(Person.class);
+ObjectFactory objectFactory = new DashaObjectFactory();
+Person value = objectFactory.get(Person.class);
 ```
 
 ### Custom object generation
 
-Creation of the object consists of two phases: **instance creation** phase and **filling** one. There are default
-instance builder and default object filler to create objects. If you want to create object using instance builder only
-use
-[InstanceBuildered](https://github.com/mathter/genthz/blob/master/genthz-api/src/main/java/org/genthz/configuration/dsl/InstanceBuildered.java){:target="_blank"}
+Creation of the object consists of two phases: **instance creation** (using [constructor](https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Constructor.html){:target="_blank"})
+phase and **filling** one. There are default
+instance builder and default object filler to create objects.
+If you want to create object using instance builder only use
+[InstanceBuilderFirst#simple()]({{site.source_base}}/genthz-core/src/main/java/org/genthz/dsl/InstanceBuilderFirst.java#L33){:target="_blank"}
 . In this case **filling** phase will be skipped.
 
 ```java
@@ -98,23 +109,22 @@ public class Person {
     }
 }
 
-    Person value = new AbstractConfiguration() {
+Person value = new new DashaDsl() {
         {
-            reg(
-                    strict(Person.class)
-                            .instance(ctx -> {
-                                Person person = new Person();
-
-                                person.setUuid(UUID.randomUUID());
-                                person.setName("Alex");
-                                person.setLastName("Brown");
-                                person.setBirthday(new Date());
-
-                                return person;
-                            })
-            );
+            strict(Person.class)
+                .simple(ctx -> {
+                    Person person = new Person();
+                    person.setUuid(UUID.randomUUID());
+                    person.setName("Alex");
+                    person.setLastName("Brown");
+                    person.setBirthday(new Date());
+                    
+                    return person;
+                    }))
         }
-    }.build().factory().build(Person.class);
+        }.def()
+         .objectFactory()
+         .get(Person.class);
 ```
 
 Next sample illustrates using **filler** phase after custom instance creation. `name`, `lastName` and `birthday` fields
