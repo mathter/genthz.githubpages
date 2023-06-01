@@ -5,7 +5,7 @@ menu_type: main
 page_type: page_common
 ---
 # About
-As developers we have to provide most efficiant solutions to business problems in
+As developers we have to provide most efficient solutions to business problems in
 the shortest possible time. It is necessary to focus on the really significant aspects of business goals
 and minimize the amount of mechanical work in such case. Enterprise applications are becoming more and more
 complex and more integrated into one another forming entire ecosystems in nowadays. In such a case the testing takes
