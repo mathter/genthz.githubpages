@@ -1,7 +1,16 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
+# MacOS
+.DS_Store
+
 .idea
-iml
+
+
+# Jekyll / Design System
+/design-system
+/_site
+/.sass-cache
+/_config-test.yml
+/_site
+/_config-local-ip.yml
+/_config-ip.yml
+/.jekyll-cache
+.jekyll-metadata
