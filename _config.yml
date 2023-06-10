@@ -2,6 +2,7 @@
 # JEKYLL CONFIGURATION
 # More info at https://jekyllrb.com/docs/configuration/options/
 # ---------
+remote_theme: olivier3lanc/Jekyll-LibDoc
 
 plugins:
   - jekyll-toc
