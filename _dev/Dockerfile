@@ -3,7 +3,7 @@ FROM ubuntu
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install ruby-full build-essential zlib1g-dev
-RUN gem install jekyll bundler
+RUN gem install jekyll bundler nokogiri
 
 EXPOSE 4000
 
