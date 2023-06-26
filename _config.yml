@@ -6,6 +6,7 @@ remote_theme: olivier3lanc/Jekyll-LibDoc
 
 plugins:
   - jekyll-toc
+  - jekyll-remote-theme
 
 title: GenThz Project # title of the documentation
 description: >- # Description of the docs. (>- means to ignore newlines until next param)
